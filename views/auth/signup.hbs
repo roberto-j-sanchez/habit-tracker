@@ -1,0 +1,24 @@
+<h2>Sign Up for SMART Habits</h2>
+
+<form id="form" action="/signup" method="POST">
+  <label for="">Full name</label><br>
+  <input type="text" name="fullName" placeholder="Ron Swanson">
+
+  <label for="email">Email</label><br>
+  <input type="text" name="email" placeholder="ron.u.swanson@pawnee.gov">
+
+  <label for="password">Password</label><br>
+  <input type="password" name="password">
+
+  {{#if errorMessage}}
+    <div class="error-message">{{ message }}</div>
+  {{/if}}
+  
+  <button type="submit">Create Account</button>
+
+  <p class="account-massage">
+    Do you already have an account?
+    <a href="/login">Log In</a>
+  </p>
+</form>
+
