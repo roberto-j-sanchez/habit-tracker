@@ -2,17 +2,13 @@
 
 <form id="form" action="/signup" method="POST">
   <label for="">Full name</label><br>
-  <input type="text" name="fullName" placeholder="Ron Swanson">
+  <input type="text" name="fullName">
 
   <label for="email">Email</label><br>
-  <input type="text" name="email" placeholder="ron.u.swanson@pawnee.gov">
+  <input type="text" name="email">
 
   <label for="password">Password</label><br>
   <input type="password" name="password">
-
-  {{#if errorMessage}}
-    <div class="error-message">{{ message }}</div>
-  {{/if}}
   
   <button type="submit">Create Account</button>
 
@@ -22,3 +18,4 @@
   </p>
 </form>
 
+{{> flashMessage}}

@@ -46,7 +46,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
 // register the partials
-hbs.registerPartials(__dirname + 'views/partials');
+hbs.registerPartials(__dirname + '/views/partials');
 
 // default value for title local
 app.locals.title = 'SMART Habits';
@@ -63,5 +63,7 @@ passportSetup(app);
 // routes middleware
 app.use('/', require('./routes/index'));
 app.use('/', require('./routes/auth-routes'));
+app.use('/', require('./routes/user-routes'));
+app.use('/', require('./routes/habit-routes'));
 
 module.exports = app;

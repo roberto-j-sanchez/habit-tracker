@@ -24,10 +24,10 @@ router.post('/signup', (req, res, next) => {
   }
 
   User.findOne({ email: email })
-  .then( user => {
-    if( user !== null ){
+  .then( foundUser => {
+    if( foundUser !== null ){
       req.flash('error', 'This email is already taken.');
-      res.redirect('/login');
+      res.redirect('/signup');
       return;
     }
 
@@ -55,7 +55,8 @@ router.post('/signup', (req, res, next) => {
   .catch( err => next(err));
 })
 
-// LOGIN
+//////////////// LOGIN /////////////////////
+
 router.get('/login', (req, res, next) => {
   res.render('auth/login');
 })
@@ -67,7 +68,8 @@ router.post('/login', passport.authenticate('local', {
   passReqToCallback: true  
 }));
 
-// LOGOUT
+//////////////// LOGOUT /////////////////////
+
 router.post('/logout', (req, res, next) => {
   req.logout();
   res.redirect('/login');
