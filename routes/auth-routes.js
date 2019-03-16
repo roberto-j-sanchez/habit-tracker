@@ -11,19 +11,20 @@ router.get("/signup", (req, res, next) => {
   res.render("auth/signup");
 });
 
+// action="/signup"
 router.post('/signup', (req, res, next) => {
-  const fullName = req.body.fullName;
-  const email = req.body.email;
-  const password = req.body.password;
+  const userFullName = req.body.fullName;
+  const userEmail = req.body.email;
+  const userPassword = req.body.password;
 
   // Signup - Form validation
-  if(fullName == '' || email == '' || password == ''){
+  if(userFullName == '' || userEmail == '' || userPassword == ''){
     req.flash('error', 'Please provide a valid email and password.')
     res.redirect('/signup')
     return;
   }
 
-  User.findOne({ email: email })
+  User.findOne({ email: userEmail })
   .then( foundUser => {
     if( foundUser !== null ){
       req.flash('error', 'This email is already taken.');
@@ -32,27 +33,27 @@ router.post('/signup', (req, res, next) => {
     }
 
     const salt = bcrypt.genSaltSync(bcryptSalt);
-    const hashPassword = bcrypt.hashSync(password, salt);
+    const hashPassword = bcrypt.hashSync(userPassword, salt);
 
     // Create account
     User.create({
-      fullName,
-      email,
+      fullName: userFullName,
+      email: userEmail,
       password: hashPassword
     })
     .then( user => {
       req.login(user, (err) => {
         if(err){
           req.flash('error', 'Auto login is not working...')
-          res.redirect('login');
+          res.redirect('/login');
           return;
         }
-        res.redirect('/secret');
+        res.redirect('/private');
       })
     })
-    .catch(err => next(err));
+    .catch(err => next(err)); // closing User.create
     })
-  .catch( err => next(err));
+  .catch( err => next(err)); // closing User.findOne()
 })
 
 //////////////// LOGIN /////////////////////
@@ -62,7 +63,7 @@ router.get('/login', (req, res, next) => {
 })
 
 router.post('/login', passport.authenticate('local', {
-  successRedirect: '/', // <== successfully logged in
+  successRedirect: '/habits', // <== successfully logged in
   failureRedirect: '/login', // <== login failed so go to '/login' to try again
   failureFlash: true,
   passReqToCallback: true  

@@ -1,13 +1,13 @@
 const express = require('express');
 const router  = express.Router();
 
-router.get('/overview', (req, res, next) => {
+router.get('/private', (req, res, next) => {
   if(!req.user){
     req.flash('error', 'You have to be logged in to access')
     res.redirect('/login');
     return;
   }
-  res.render('user-pages/overview');
+  res.render('user-pages/profile-page');
 });
 
 router.get('/about', (req, res, next) => {

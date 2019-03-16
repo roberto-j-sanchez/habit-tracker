@@ -1,0 +1,63 @@
+<h1>Welcome to the details page of the {{ habit.name }}</h1>
+<p>This habit is posted by: <b> {{ habit.owner.fullName }} </b></p>
+<hr>
+<h3>Description:</h3>
+<p> {{ habit.description }}</p>
+<hr>
+<h3>Rewards:</h3>
+<p>{{habit.reward}}</p>
+<hr>
+<h3>Reason:</h3>
+<p>{{habit.reason}}</p>
+<hr>
+<h3>Schedule:</h3>
+<p>This habit needs to be performed {{habit.repeat}} {{habit.timePeriod}}.</p>
+<hr>
+{{!-- <h3>Start Date:</h3>
+<p>{{habit.startDate}}</p>
+<hr> --}}
+<h3>Notes & Tracking</h3>
+{{#each habit.track}}
+  <div>
+    <p>Completed: <b>{{this.completed}}</b></p>
+    <P>Note: {{this.note}}</P>
+  </div>
+{{/each}}
+
+
+{{#if habit.isOwner}}
+  {{!-- <button id="toggle-button">Update habit details</button> --}}
+
+  <form action="/habits/{{habit._id}}/update" method="post" id="edit-form" hidden="true" 
+    <label for="">Name</label>
+    <input type="text" name="name" id="" value="{{habit.name}}">
+
+    <label for="">Description</label>
+    <textarea name="description" id="" cols="30" rows="10"> {{habit.description}} </textarea>
+
+    <button type="submit">Save changes</button>
+  </form>
+
+  <h2>Add a note:</h2>
+  <form action="/habits/{{habit._id}}/add-note" method="POST">
+    <textarea name="note" id="" cols="10" rows="5"></textarea>
+    <button type="submit">Completed</button>
+  </form>
+
+{{/if}}
+
+<hr>
+
+
+{{#if habit.tracking}}
+  <h3>Completed:</h3>
+  {{#each habit.tracking}}
+    <p> {{ this.note }}  </p>
+    {{#if this.canBeChanged}}
+      <a href="/tracking/{{this._id}}">Edit</a>
+      <form action="/tracking/{{this._id}}" method="POST">
+        <button type="submit"> Delete </button>
+      </form>
+    {{/if}}
+  {{/each}}
+{{/if}}

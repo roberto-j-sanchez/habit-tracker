@@ -14,7 +14,7 @@ passport.use(new LocalStrategy({
 
     if(userFromDb.password){
       if(!bcrypt.compareSync(password, userFromDb.password)){
-        return next(null, false, { message: 'Invalid email'})
+        return next(null, false, { message: 'Invalid password'})
       }
     } else {
       return next(null, false, { message: 'This email is used for your social login'})

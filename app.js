@@ -48,8 +48,9 @@ app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 // register the partials
 hbs.registerPartials(__dirname + '/views/partials');
 
+
 // default value for title local
-app.locals.title = 'SMART Habits';
+app.locals.title = 'SMARThabit';
 
 // handle express session
 app.use(session({
@@ -60,6 +61,11 @@ app.use(session({
 
 passportSetup(app);
 
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  next();
+})
+
 // routes middleware
 app.use('/', require('./routes/index'));
 app.use('/', require('./routes/auth-routes'));
@@ -67,3 +73,4 @@ app.use('/', require('./routes/user-routes'));
 app.use('/', require('./routes/habit-routes'));
 
 module.exports = app;
+

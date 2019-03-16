@@ -1,0 +1,69 @@
+<div class="container">
+  <h2>Add a habit</h2>
+    <form action="/create-habit" method="POST">
+
+    <label for="">Name</label>
+    <input type="text" name="name" id="">
+
+    <label for="">Description</label>
+    <textarea name="description" id="" rows="10"></textarea>
+
+    <label for="">Reward</label>
+    <textarea name="reward" id="" rows="4"></textarea>
+
+    <label for="">Reason</label>
+    <textarea name="reason" id="" rows="7"></textarea>
+
+    <label for="">Repeat</label>
+    <input type="number" name="repeat" id="">
+
+    <label for="">Times</label>
+    <select name="timePeriod">
+      <option value="day">Daily</option>
+      <option value="week">Weekly</option>
+    </select>
+{{!-- 
+    <div>
+      <span>
+        <label for="Sunday">S</label>
+        <input type="checkbox" id="Sunday" value="1">
+      </span>
+      <span>
+        <label for="Monday">M</label>
+        <input type="checkbox" id="Monday" value="2">
+      </span>
+      <span>
+        <label for="Tuesday">T</label>
+        <input type="checkbox" id="Tuesday" value="3">
+      </span>
+      <span>
+        <label for="Wednesday">W</label>
+        <input type="checkbox" id="Wednesday" value="4">
+      </span>
+      <span>
+        <label for="Thursday">T</label>
+        <input type="checkbox" id="Thursday" value="5">
+      </span>
+      <span>
+        <label for="Friday">F</label>
+        <input type="checkbox" id="Friday" value="6">
+      </span>
+      <span>
+        <label for="Saturday">M</label>
+        <input type="checkbox" id="Saturday" value="6">
+      </span>
+    </div>
+
+    <label for="">Start Date</label>
+    <input type="date" name="endDate" id=""> --}}
+
+    <button type="submit">Add Habit</button>
+    <a href="/habits">Cancel</a>
+
+  </form>
+</div>
+
+
+
+
+

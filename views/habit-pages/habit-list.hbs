@@ -1,0 +1,28 @@
+{{!-- <div class="container">
+  <div class="topnav" id="myTopnav">
+    <a href="/">
+      <img src="/images/brand.png">
+    </a>
+    <a href="/habits">Habits</a>
+    <a href="/habits/add">Add</a>
+    <a href="/logout">Log out</a>
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+      <i class="fa fa-bars"></i>
+    </a>
+  </div>
+</div> --}}
+
+<div>
+  <ul>
+  {{#each habitsFromDB}}
+  <li>
+    <h3><a href="/habits/{{ this._id }}">{{ this.name }}</h3>
+  {{#if this.isOwner}}
+    <form action="/habits/{{this._id}}/delete" method="POST">
+      <button>Delete</button>
+    </form>
+  {{/if}}
+  </li>
+  {{/each}}
+  </ul>
+</div>
