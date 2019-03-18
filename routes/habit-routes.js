@@ -19,7 +19,6 @@ router.get('/habits', (req, res, next) => {
         }
       }
     })
-    console.log("====================", habitsFromDB);
     res.render('habit-pages/habit-list', { habitsFromDB })
   })
   .catch( err => next(err) )
@@ -77,7 +76,6 @@ router.post('/habits/:habitId/update', (req, res, next) => {
 
 // delete a specific habit
 router.post('/habits/:id/delete', (req, res, next) => {
-  // console.log("deleting habit <<<<<<<<<<<<<<<<<<<<<<<<<<<", req.params.id)
   Habit.findByIdAndDelete(req.params.id)
   .then(() => {
     res.redirect('/habits');
@@ -105,7 +103,6 @@ router.get('/habits/:habitId', isLoggedIn, (req, res, next) => {
   // populate 'tracking' field and the 'user' field that is inside of tracking
   .populate({path: 'tracking', populate: {path: 'user'}})
   .then( foundHabit => {
-    console.log(" == = == ", foundHabit)
     if(foundHabit.owner.equals(req.user._id)){
       foundHabit.isOwner = true;
     }
@@ -137,22 +134,18 @@ router.get('/habits/:habitId', isLoggedIn, (req, res, next) => {
 
 router.post('/habits/:habitId/add-note', (req, res, next) => {
   theDate = new Date()
-  console.log("finding habit to update note >>>>>>>>>>>>>>>> ", req.params.habitId);
   Tracking.create({
     owner: req.user._id,
     completed: Date.now(),
     note: req.body.note
   })
   .then(newNote => {
-    console.log("the newly created note ==================", newNote)
     Habit.findById(req.params.habitId)
     .then(foundHabit => {
-      console.log("found the habbit to add note to <<<<<<<<<<<<<<<<<<<<<< ", foundHabit)
       foundHabit.track.push(newNote._id)
       foundHabit.markModified('trackings')
       foundHabit.save()
       .then(updatedHabit => {
-        console.log("habit note pushed to trackings array --------------------------", updatedHabit)
         res.redirect('/habits')
       })
       .catch(err => {

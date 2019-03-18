@@ -38,7 +38,6 @@ router.post('/tracking/:id', (req, res, next) => {
     Habit.findOne({'habits': req.params.id})
     .then(foundHabit => {
       for(let i=0; i < foundHabit.tracking.length; i++){
-        console.log(foundHabit.tracking[i]._id.equals(req.params._id))
         if(foundHabit.tracking[i]._id.equals(req.params._id)){
           foundHabit.tracking.splice(i, 1);
         }
